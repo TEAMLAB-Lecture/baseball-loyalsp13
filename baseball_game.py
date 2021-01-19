@@ -283,18 +283,26 @@ def main():
     while play_again:
         input_again = True
         while input_again:
-            user_input = input('Input guess number : ')
-            if not is_validated_number(user_input):
-                print('Wrong Input, Input again')
+            user_input = input("Input guess number : ")
+            if user_input == '0':
+                input_again = False
+                play_again = False
+            elif not is_validated_number(user_input):
+                print("Wrong Input, Input again")
             else:
                 input_again = False
+        if not play_again:
+            break
         result = get_strikes_or_ball(user_input, random_number)
-        print(f'Strikes : {result[0]} , Balls : {result[1]}')
+        print(f"Strikes : {result[0]} , Balls : {result[1]}")
         if result[0] == 3:
             input_again = True
             while input_again:
-                user_input = input('You win, one more(Y/N)?')
-                if is_yes(user_input):
+                user_input = input("You win, one more(Y/N)?")
+                if user_input == '0':
+                    input_again = False
+                    play_again = False
+                elif is_yes(user_input):
                     random_number = str(get_not_duplicated_three_digit_number())
                     print("Random Number is : ", random_number)
                     input_again = False
@@ -302,7 +310,9 @@ def main():
                     input_again = False
                     play_again = False
                 else:
-                    print('Wrong Input, Input again')
+                    print("Wrong Input, Input again")
+            if not play_again:
+                break
     # ==================================
     print("Thank you for using this program")
     print("End of the Game")
